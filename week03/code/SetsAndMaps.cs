@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -21,8 +22,24 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var stringSet = new HashSet<string>();
+        var results = new List<string>();
+        foreach (var x in words)
+        {
+            if (x[0] == x[1])
+                continue;
+
+
+            var reverseword = $"{x[1]}{x[0]}";
+            if (stringSet.Contains(reverseword))
+            {
+                results.Add($"{x} & {reverseword}");
+            }
+            stringSet.Add(x);
+
+        }
+        return results.ToArray();
+
     }
 
     /// <summary>
@@ -43,6 +60,18 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+
+            }
+            else
+            {
+                degrees[degree] = 1;
+            }
+
+
         }
 
         return degrees;
@@ -101,6 +130,6 @@ public static class SetsAndMaps
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
         // 3. Return an array of these string descriptions.
-        return [];
+        return Array.Empty<string>();
     }
 }

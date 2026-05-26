@@ -1,4 +1,6 @@
-﻿public class DuplicateCounter
+﻿using System.Runtime.Serialization;
+
+public class DuplicateCounter
 {
     //Count how many duplicates are in a collection of data.
 
@@ -25,6 +27,11 @@
     private static int CountDuplicates(int[] data)
     {
         // Add code here.
-        return 0;
+        //var set = new HashSet<int>(data);
+        //var duplicates = data.Length - set.Count;
+
+        //return duplicates;
+        var unique = new HashSet<int>(data);
+        return data.Length - unique.Count;
     }
 }
