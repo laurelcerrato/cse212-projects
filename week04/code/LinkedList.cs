@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Globalization;
+using System.Transactions;
 
 public class LinkedList : IEnumerable<int>
 {
@@ -131,16 +132,40 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void Remove(int value)
     {
-        // start at the headNode current = _head;
-      
-        //Node current = _head;
-        //while (current != null)
-        //{
-        // if(current.Value == value)
-        // {
+        // start at the head
+        var current = _head;
+        while (current != null)
+        {
+            if (current.Data == value)
+            {
+                // If it's the only node
+                if (current == _head && current == _tail)
+                {
+                    _head = null;
+                    _tail = null;
+                }
+                else if (current == _head)
+                {
+                    // remove head
+                    RemoveHead();
+                }
+                else if (current == _tail)
+                {
+                    // remove tail
+                    RemoveTail();
+                }
+                else
+                {
+                    // unlink current
+                    current.Prev!.Next = current.Next;
+                    current.Next!.Prev = current.Prev;
+                }
 
-        // }
-        //}
+                return;
+            }
+
+            current = current.Next;
+        }
 
 
     }    /// <summary>
@@ -148,7 +173,17 @@ public class LinkedList : IEnumerable<int>
          /// </summary>
     public void Replace(int oldValue, int newValue)
     {
-        // TODO Problem 4
+        // Search for all instances of 'oldValue' and replace them with 'newValue'.
+        var current = _head;
+        while (current != null)
+        {
+            if (current.Data == oldValue)
+            {
+                current.Data = newValue;
+            }
+
+            current = current.Next;
+        }
     }
 
     /// <summary>
